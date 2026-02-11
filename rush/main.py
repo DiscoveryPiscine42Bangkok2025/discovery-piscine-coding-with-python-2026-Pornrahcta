@@ -1,0 +1,13 @@
+from checkmate import checkmate
+def main():
+    # ตัวอักษรทุกตัวยกเว้น P,B,R,Q,K หมายถึงที่ว่างในกระดาน
+    board = """\
+    ....
+    .R..
+    ..B.
+    K...\
+    """
+    checkmate(board)
+
+if __name__ == "__main__":
+    main()
