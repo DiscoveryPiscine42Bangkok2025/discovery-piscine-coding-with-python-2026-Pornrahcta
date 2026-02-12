@@ -123,21 +123,162 @@ def checkmate(board):
     else:
         print("Bishop on board is more than 2 pieces")
         return 0
+    
     if len(r_index) <= 2:
         for pawn in r_index:
-            pass
-            # จัดการวิธีเดิน Rook ตรงนี้
+            # วนลูป 4 รอบ สำหรับ 4 ทิศทาง (ขึ้น, ลง, ซ้าย, ขวา)
+            for iterate in range(1, 5):
+                # รีเซ็ตตำแหน่งเริ่มต้นของตัว Rook ทุกครั้งที่เปลี่ยนทิศ
+                j = pawn[0]
+                i = pawn[1]
+                paths = set()
+
+                if iterate == 1: # เดินขึ้นข้างบน (ลดค่า j)
+                    while (j-1) >= 0:
+                        paths.add((j-1, i))
+                        j -= 1
+                        # ตรวจสอบการชนเหมือน Bishop
+                        intersect = paths.intersection(occupied_index)
+                        if k_index.issubset(paths):
+                            print("Success")
+                            return 0
+                        elif intersect:
+                            break
+
+                elif iterate == 2: # เดินลงข้างล่าง (เพิ่มค่า j)
+                    while (j+1) < size:
+                        paths.add((j+1, i))
+                        j += 1
+                        intersect = paths.intersection(occupied_index)
+                        if k_index.issubset(paths):
+                            print("Success")
+                            return 0
+                        elif intersect:
+                            break
+
+                elif iterate == 3: # เดินไปทางซ้าย (ลดค่า i)
+                    while (i-1) >= 0:
+                        paths.add((j, i-1))
+                        i -= 1
+                        intersect = paths.intersection(occupied_index)
+                        if k_index.issubset(paths):
+                            print("Success")
+                            return 0
+                        elif intersect:
+                            break
+
+                elif iterate == 4: # เดินไปทางขวา (เพิ่มค่า i)
+                    while (i+1) < size:
+                        paths.add((j, i+1))
+                        i += 1
+                        intersect = paths.intersection(occupied_index)
+                        if k_index.issubset(paths):
+                            print("Success")
+                            return 0
+                        elif intersect:
+                            break
 
     else:
         print("Rook on board is more than 2 pieces")
         return 0
-    if len(q_index) <= 2:
+    
+    if len(q_index) == 1:
         for pawn in q_index:
-            pass
-            # จัดการวิธีเดิน Queen ตรงนี้
+            # Queen เดินได้ 8 ทิศทาง (1-4 เฉียงเหมือน Bishop, 5-8 ตรงเหมือน Rook)
+            for iterate in range(1, 9):
+                j = pawn[0]
+                i = pawn[1]
+                paths = set()
 
+                # --- ส่วนการเดินเฉียง (เหมือน Bishop) ---
+                if iterate == 1: # เฉียงบนซ้าย
+                    while (j-1) >= 0 and (i-1) >= 0:
+                        paths.add((j-1, i-1))
+                        j -= 1
+                        i -= 1
+                        intersect = paths.intersection(occupied_index)
+                        if k_index.issubset(paths):
+                            print("Success")
+                            return 0
+                        elif intersect:
+                            break
+                elif iterate == 2: # เฉียงบนขวา
+                    while (j-1) >= 0 and (i+1) < size:
+                        paths.add((j-1, i+1))
+                        j -= 1
+                        i += 1
+                        intersect = paths.intersection(occupied_index)
+                        if k_index.issubset(paths):
+                            print("Success")
+                            return 0
+                        elif intersect:
+                            break
+                elif iterate == 3: # เฉียงล่างซ้าย
+                    while (j+1) < size and (i-1) >= 0:
+                        paths.add((j+1, i-1))
+                        j += 1
+                        i -= 1
+                        intersect = paths.intersection(occupied_index)
+                        if k_index.issubset(paths):
+                            print("Success")
+                            return 0
+                        elif intersect:
+                            break
+                elif iterate == 4: # เฉียงล่างขวา
+                    while (j+1) < size and (i+1) < size:
+                        paths.add((j+1, i+1))
+                        j += 1
+                        i += 1
+                        intersect = paths.intersection(occupied_index)
+                        if k_index.issubset(paths):
+                            print("Success")
+                            return 0
+                        elif intersect:
+                            break
+                
+                # --- ส่วนการเดินแนวตรง (เหมือน Rook) ---
+                elif iterate == 5: # ขึ้นบน
+                    while (j-1) >= 0:
+                        paths.add((j-1, i))
+                        j -= 1
+                        intersect = paths.intersection(occupied_index)
+                        if k_index.issubset(paths):
+                            print("Success")
+                            return 0
+                        elif intersect:
+                            break
+                elif iterate == 6: # ลงล่าง
+                    while (j+1) < size:
+                        paths.add((j+1, i))
+                        j += 1
+                        intersect = paths.intersection(occupied_index)
+                        if k_index.issubset(paths):
+                            print("Success")
+                            return 0
+                        elif intersect:
+                            break
+                elif iterate == 7: # ซ้าย
+                    while (i-1) >= 0:
+                        paths.add((j, i-1))
+                        i -= 1
+                        intersect = paths.intersection(occupied_index)
+                        if k_index.issubset(paths):
+                            print("Success")
+                            return 0
+                        elif intersect:
+                            break
+                elif iterate == 8: # ขวา
+                    while (i+1) < size:
+                        paths.add((j, i+1))
+                        i += 1
+                        intersect = paths.intersection(occupied_index)
+                        if k_index.issubset(paths):
+                            print("Success")
+                            return 0
+                        elif intersect:
+                            break
     else:
-        print("Queen on board is more than 2 pieces")
+        print("Queen on board is more than 1 pieces")
         return 0
     
     # ถ้า King ไม่โดนเจอโดยเบี้ยตัวไหนเลยทุกเส้นทางการเดินที่เป็นไปได้โดยไม่ติดอุปสรรคจะแสดงคำว่า Fail ออกมา
