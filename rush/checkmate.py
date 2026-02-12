@@ -60,7 +60,7 @@ def checkmate(board):
                     print("Success")
                     return 0
     # จำนวน Bishop ต้องน้อยกว่า 2
-    if len(b_index) <= 2:
+    if b_index and len(b_index) <= 2:
         for pawn in b_index:
             # วนลูปให้ครบ 4 รอบตามจำนวนเส้นทาง
             for iterate in range(1,5):
@@ -120,11 +120,11 @@ def checkmate(board):
                 elif iterate == 5:
                     print("testing")
                 
-    else:
+    elif len(b_index) > 2:
         print("Bishop on board is more than 2 pieces")
         return 0
     
-    if len(r_index) <= 2:
+    if r_index and len(r_index) <= 2:
         for pawn in r_index:
             # วนลูป 4 รอบ สำหรับ 4 ทิศทาง (ขึ้น, ลง, ซ้าย, ขวา)
             for iterate in range(1, 5):
@@ -178,7 +178,7 @@ def checkmate(board):
                         elif intersect:
                             break
 
-    else:
+    elif len(r_index) > 2:
         print("Rook on board is more than 2 pieces")
         return 0
     
@@ -277,7 +277,7 @@ def checkmate(board):
                             return 0
                         elif intersect:
                             break
-    else:
+    elif len(q_index) > 1:
         print("Queen on board is more than 1 pieces")
         return 0
     

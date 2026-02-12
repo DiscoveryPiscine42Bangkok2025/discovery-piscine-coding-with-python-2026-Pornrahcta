@@ -2,10 +2,10 @@ from checkmate import checkmate
 def main():
     # ตัวอักษรทุกตัวยกเว้น P,B,R,Q,K หมายถึงที่ว่างในกระดาน
     board = """\
-    ...R
-    .R..
-    ..B.
-    K.QP\
+    ....
+    ....
+    ....
+    K..P\
     """
     checkmate(board)
 
